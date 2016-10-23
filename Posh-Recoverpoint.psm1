@@ -399,6 +399,7 @@ function Enable-ImageAccess{
         elseif ($NewestBookMark){$rpimage = Get-Image -CGName $CGName -ClusterName $ClusterName -CGCopyName $CGCopyName | Where {$_.description -ne ""} | select -Last 1}
         elseif ($Oldest){$rpimage = Get-Image -CGName $CGName -ClusterName $ClusterName -CGCopyName $CGCopyName | select -First 1}
         elseif ($OldestBookMark){$rpimage= Get-Image -CGName $CGName -ClusterName $ClusterName -CGCopyName $CGCopyName | Where {$_.description -ne ""} | select -First 1}
+        else                    {$rpimage= Get-Image -CGName $CGName -ClusterName $ClusterName -CGCopyName $CGCopyName | Where {$_.description -eq $objrpimage.description} | select -First 1}
         $objrpimage = $rpimage.objrpimage
         if (!$objrpimage){Write-Error "Unable to select objrpimage from image" ; Break }
         $json = "" | select mode,scenario,snapshot
